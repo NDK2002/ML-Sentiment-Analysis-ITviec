@@ -302,13 +302,20 @@ def save_feature_split(
     feature_names = extractor.get_feature_names_out()
     if len(feature_names) != split.X_train.shape[1]:
         raise ValueError("Số tên đặc trưng không khớp chiều X_train.")
+
+    # Chuẩn hóa nhãn về pd.Series dtype=object để tương thích hoàn toàn giữa mọi phiên bản pandas
+    train_vals = split.y_train.values if hasattr(split.y_train, "values") else split.y_train
+    test_vals = split.y_test.values if hasattr(split.y_test, "values") else split.y_test
+    y_train = pd.Series(train_vals, index=split.train_indices, dtype=object)
+    y_test = pd.Series(test_vals, index=split.test_indices, dtype=object)
+
     joblib.dump(
         {
             "schema_version": 2,
             "X_train": split.X_train,
             "X_test": split.X_test,
-            "y_train": split.y_train,
-            "y_test": split.y_test,
+            "y_train": y_train,
+            "y_test": y_test,
             "train_indices": split.train_indices,
             "test_indices": split.test_indices,
             "feature_names": feature_names,
@@ -316,12 +323,39 @@ def save_feature_split(
         },
         path,
     )
-    print(f"Đã lưu train/test features tại: {path}")
+    try:
+        print(f"Đã lưu train/test features tại: {path}")
+    except UnicodeEncodeError:
+        print(f"Da luu train/test features tai: {path}")
 
 
 def load_feature_split(filepath: str | os.PathLike[str]) -> dict:
     """Tải và kiểm tra tính nhất quán của artifact train/test schema v2."""
-    artifact = joblib.load(filepath)
+    try:
+        artifact = joblib.load(filepath)
+    except NotImplementedError:
+        # Tương thích ngược: pandas 3.0 lưu NDArrayBacked dạng 2-tuple, pandas 2.x yêu cầu 3-tuple
+        import joblib.numpy_pickle as jnp
+
+        orig_build = jnp.NumpyUnpickler.dispatch[ord("b")]
+
+        def custom_build(self):
+            state = self.stack.pop()
+            inst = self.stack[-1]
+            setstate = getattr(inst, "__setstate__", None)
+            if setstate is not None and isinstance(state, tuple) and len(state) == 2:
+                state = (state[0], state[1], {})
+                setstate(state)
+                return
+            self.stack.append(state)
+            orig_build(self)
+
+        try:
+            jnp.NumpyUnpickler.dispatch[ord("b")] = custom_build
+            artifact = joblib.load(filepath)
+        finally:
+            jnp.NumpyUnpickler.dispatch[ord("b")] = orig_build
+
     required = {
         "schema_version",
         "X_train",
@@ -346,3 +380,4 @@ def load_feature_split(filepath: str | os.PathLike[str]) -> dict:
     if len(artifact["y_test"]) != artifact["X_test"].shape[0]:
         raise ValueError("Số nhãn test không khớp X_test.")
     return artifact
+
