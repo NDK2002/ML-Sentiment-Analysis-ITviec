@@ -39,11 +39,11 @@ EDA không phải bước “vẽ biểu đồ cho đẹp”. Nó trả lời c�
 
 Các phát hiện chính:
 
-- 8.417 review, 180 công ty.
-- Positive chiếm 73,76%; Negative chỉ 6,77%.
-- Lexicon hiện chỉ có tín hiệu ở khoảng 12,26% review.
-- Emoji features hiện bằng 0 trên toàn bộ dữ liệu.
-- Có 6 dòng thuộc các nhóm text trùng; một nhóm cùng text nhưng khác weak label.
+- 8.417 review gốc, 180 công ty; sau khử trùng lặp và loại bỏ xung đột nhãn còn 8.414 dòng modeling sạch.
+- Positive chiếm 73,76%; Neutral 19,47%; Negative chỉ 6,77%.
+- Lexicon coverage sau khi tối ưu đạt 99,75% số review (trung bình khớp 6,84 cụm mang cảm xúc).
+- Emoji được đếm trên văn bản thô trước chuẩn hóa, có 20/8.417 review (0,24%) chứa emoji.
+- Stratified 80/20 seed 2026: development 6.731 mẫu / final test 1.683 mẫu khóa độc lập.
 - Một số công ty có rất nhiều review, trong khi nhiều công ty có mẫu quá nhỏ để kết luận riêng.
 
 ## 3. Vì sao không đưa Rating vào feature?
@@ -125,7 +125,7 @@ TV3 không được fit lại TF-IDF hoặc chia lại dữ liệu. Notebook mod
 
 ## 9. Việc cần con người thực hiện
 
-Bắp đã tạo hai file cho audit 300 review, 100 mẫu mỗi weak label:
+TV2 (Văn Duy) đã tạo hai file cho audit 300 review, 100 mẫu mỗi weak label:
 
 - `data/annotation/sentiment_audit_blind.csv`: hai thành viên đọc text và gán nhãn độc lập.
 - `data/annotation/sentiment_audit_key.csv`: Rating và weak label, chỉ mở sau khi gán nhãn xong.

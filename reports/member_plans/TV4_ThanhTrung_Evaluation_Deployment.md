@@ -9,7 +9,7 @@
 ## 📌 I. DANH SÁCH NHIỆM VỤ CHI TIẾT (CHECKLIST)
 
 ### 🟢 Giai đoạn 1: Đánh giá mô hình & Phân tích lỗi (Error Analysis)
-- [ ] **Đánh giá trên tập Final Test độc lập (20% - 1.682 mẫu):**
+- [ ] **Đánh giá trên tập Final Test độc lập (20% - 1.683 mẫu):**
   - Nhận mô hình tối ưu `models/best_sentiment_model.joblib` từ TV3.
   - Chạy dự đoán đúng **một lần duy nhất** trên tập Final Test độc lập (chống rò rỉ dữ liệu).
   - Tính toán các chỉ số đánh giá: **Macro F1-Score, Weighted F1-Score, Accuracy, Precision, Recall** theo từng lớp.

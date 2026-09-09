@@ -164,7 +164,7 @@ Do_An_May_Hoc_Sentiment_Analysis/
 
 ## 6. Bảng Theo dõi Tiến độ Dự án (Project Progress & Deliverables)
 
-*Cập nhật lần cuối: 08/09/2026 — Giai đoạn 1 & 2 hoàn thành (TV1 + TV2 = 50%) ✅ | Artifacts TV2 đã chạy lại trên dataset lexicon hợp nhất của TV1 (coverage 99,75%) | Giai đoạn 3 (TV3) sẵn sàng nhận bàn giao ⏳*
+*Cập nhật lần cuối: 09/09/2026 — Giai đoạn 1 & 2 hoàn thành (TV1 + TV2 = 50%) ✅ | Đã merge PR #1 của TV2 vào master, 18/18 tests pass | Giai đoạn 3 (TV3) sẵn sàng triển khai ⏳*
 
 | STT | Hạng mục công việc | Phụ trách chính | Trạng thái | Chi tiết kế hoạch bàn giao |
 | :---: | :--- | :--- | :---: | :--- |

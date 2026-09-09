@@ -8,9 +8,9 @@
 
 ## 📌 I. DANH SÁCH NHIỆM VỤ CHI TIẾT (CHECKLIST)
 
-### 🟢 Giai đoạn 1: Xây dựng & Huấn luyện các mô hình Machine Learning
+### 🟢 Giai đoạn 1: Xây dựng & Huấn luyện các mô hình Machine Learning *(Đã nhận bàn giao artifacts từ TV2)*
 - [ ] **Làm việc trên [notebooks/03_sentiment_modeling_ml.ipynb](file:///d:/Trí%20tuệ%20nhân%20tạo/HK2/Máy%20học/Project/Do_An_May_Hoc_Sentiment_Analysis/notebooks/03_sentiment_modeling_ml.ipynb) và [src/models.py](file:///d:/Trí%20tuệ%20nhân%20tạo/HK2/Máy%20học/Project/Do_An_May_Hoc_Sentiment_Analysis/src/models.py):**
-  - Đọc ma trận đặc trưng `train_test_features.joblib` do TV2 bàn giao.
+  - Đọc ma trận đặc trưng `train_test_features.joblib` do TV2 bàn giao (Đã sẵn sàng tại `models/`, 6.731 train / 1.683 test).
 - [ ] **Cài đặt 5 thuật toán Machine Learning phân loại:**
   1. **Multinomial Naive Bayes (MNB):** Mô hình Baseline đánh giá xác suất từ khóa.
   2. **Logistic Regression (LR):** Mô hình tuyến tính với hàm mất mát Log-loss, áp dụng `class_weight='balanced'`.

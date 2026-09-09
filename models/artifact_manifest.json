@@ -1,8 +1,8 @@
 {
   "schema_version": 1,
   "git_sha": "19e3993f214338792e85e9fcb53f07b5ce144294",
-  "git_branch": "feature/tv2-eda-feature-engineering",
-  "git_dirty": true,
+  "git_branch": "master",
+  "git_dirty": false,
   "data_file": "data/processed/reviews_cleaned.xlsx",
   "data_sha256": "e8e13140ad607f0084a66cb2740c0b482a67d4b727d9cd15404e2ba3448ca8f9",
   "requirements_lock_sha256": "b8fdee867d08c76b77ce8c8e8279493755d058d7152eedef1fdede33e0356a65",

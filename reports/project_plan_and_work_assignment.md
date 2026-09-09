@@ -2,7 +2,7 @@
 ## ĐỀ TÀI: PHÂN TÍCH CẢM XÚC (SENTIMENT ANALYSIS) ĐÁNH GIÁ ITVIEC
 
 - **Thời gian thực hiện:** 3 tuần (21 ngày)
-- **Trạng thái dự án:** 🔄 **Giai đoạn 1 hoàn thành (TV1 hoàn tất 25%) | Giai đoạn 2 chuẩn bị triển khai ⏳**
+- **Trạng thái dự án:** 🔄 **Giai đoạn 1 & 2 hoàn thành (TV1 + TV2 = 50%) ✅ | Giai đoạn 3 (TV3) sẵn sàng triển khai ⏳**
 - **Danh sách thành viên:**
   1. **TV1: Hoàng Hôn** (Trưởng nhóm) - `Business Understanding, Data Processing & Report Management`
   2. **TV2: Văn Duy** - `Feature Engineering, Exploratory Data Analysis (EDA) & Data Splitting`
@@ -31,14 +31,14 @@ gantt
     section Giai đoạn 1: Dữ liệu, EDA & Tiền xử lý
     TV1: Thiết lập Repo, Pipeline & Tiền xử lý text (Hoàng Hôn) :done, a1, 2026-08-28, 3d
     TV1: Gán nhãn & Xuất reviews_cleaned.xlsx (Hoàng Hôn)        :done, a2, after a1, 1d
-    TV2: Thực hiện phân tích EDA & Xuất 9 biểu đồ (Văn Duy)      :active, a3, 2026-08-29, 4d
-    TV2: Trích xuất TF-IDF & Đóng gói Artifacts (Văn Duy)        :a4, after a3, 3d
+    TV2: Thực hiện phân tích EDA & Xuất 9 biểu đồ (Văn Duy)      :done, a3, 2026-08-29, 4d
+    TV2: Trích xuất TF-IDF & Đóng gói Artifacts (Văn Duy)        :done, a4, after a3, 3d
 
     section Giai đoạn 2: Huấn luyện, Tinh chỉnh & So sánh ML
-    TV3: Huấn luyện 5 mô hình ML (Naive Bayes, SVM, LR, RF, Stacking) :b1, 2026-09-03, 4d
+    TV3: Huấn luyện 5 mô hình ML (Naive Bayes, SVM, LR, RF, Stacking) :active, b1, 2026-09-03, 4d
     TV3: Tinh chỉnh Hyperparameters & K-Fold CV (Duy Khang)     :b2, 2026-09-06, 4d
     TV3: Khóa model tốt nhất & Lưu checkpoint (Duy Khang)       :b3, 2026-09-09, 2d
-    TV1 & TV2: Soạn thảo nội dung Báo cáo Mục 1, 2, 3           :b4, 2026-09-05, 5d
+    TV1 & TV2: Soạn thảo nội dung Báo cáo Mục 1, 2, 3           :done, b4, 2026-09-05, 5d
 
     section Giai đoạn 3: Đánh giá, Demo, Báo cáo & Slide
     TV4: Đánh giá Final Test & Trực quan Confusion Matrix (Trung):c1, 2026-09-10, 3d
@@ -56,8 +56,8 @@ gantt
 | :---: | :--- | :--- | :---: |
 | 1 | Khởi tạo dự án & Từ điển `data/dictionaries/` | **TV1 (Hoàng Hôn)** | ✅ **Đã hoàn thành** |
 | 2 | File dữ liệu sạch `data/processed/reviews_cleaned.xlsx` (8.417 mẫu) | **TV1 (Hoàng Hôn)** | ✅ **Đã hoàn thành** |
-| 3 | Báo cáo EDA (9 biểu đồ) + Module đặc trưng `src/features.py` | **TV2 (Văn Duy)** | ⏳ **Sẵn sàng triển khai** |
-| 4 | Notebook huấn luyện 5 mô hình ML + File model `best_sentiment_model.joblib` | **TV3 (Duy Khang)** | ⏳ **Chờ TV2 bàn giao** |
+| 3 | Báo cáo EDA (9 biểu đồ) + Module đặc trưng `src/features.py` + Artifacts `models/` | **TV2 (Văn Duy)** | ✅ **Đã hoàn thành** |
+| 4 | Notebook huấn luyện 5 mô hình ML + File model `best_sentiment_model.joblib` | **TV3 (Duy Khang)** | ⏳ **Sẵn sàng triển khai** |
 | 5 | Bảng đánh giá Final Test, Confusion Matrix, Error Analysis & Demo Web | **TV4 (Thành Trung)** | ⏳ **Chờ TV3 bàn giao** |
 | 6 | Báo cáo toàn văn Word/PDF theo chuẩn yêu cầu môn Máy học | **TV1 (Hoàng Hôn)** & Nhóm | ⏳ **Giai đoạn cuối** |
 | 7 | Slide thuyết trình PowerPoint báo cáo đồ án | **TV1 (Hoàng Hôn)** & Nhóm | ⏳ **Giai đoạn cuối** |
