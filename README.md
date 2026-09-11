@@ -164,15 +164,15 @@ Do_An_May_Hoc_Sentiment_Analysis/
 
 ## 6. Bảng Theo dõi Tiến độ Dự án (Project Progress & Deliverables)
 
-*Cập nhật lần cuối: 09/09/2026 — Giai đoạn 1 & 2 hoàn thành (TV1 + TV2 = 50%) ✅ | Đã merge PR #1 của TV2 vào master, 18/18 tests pass | Giai đoạn 3 (TV3) sẵn sàng triển khai ⏳*
+*Cập nhật lần cuối: 11/09/2026 — Giai đoạn 1, 2 & 3 hoàn thành (TV1 + TV2 + TV3) ✅ | 30/30 tests pass | Giai đoạn 4 (TV4) sẵn sàng triển khai ⏳*
 
 | STT | Hạng mục công việc | Phụ trách chính | Trạng thái | Chi tiết kế hoạch bàn giao |
 | :---: | :--- | :--- | :---: | :--- |
 | **1** | **Thiết lập dự án & Bộ từ điển** | **TV1: Hoàng Hôn** | ✅ **Hoàn thành** | Repo, `requirements.txt`, 10 bộ từ điển tại `data/dictionaries/` đã tối ưu và sẵn sàng. |
 | **2** | **Pipeline Tiền xử lý & Gán nhãn** | **TV1: Hoàng Hôn** | ✅ **Hoàn thành** | `src/preprocessing.py`, `data/processed/reviews_cleaned.xlsx` & `.csv` (8.417 mẫu × 23 cột, 3 nhãn: Positive 73.8% / Neutral 19.5% / Negative 6.8%). |
 | **3** | **Phân tích EDA & Trích xuất TF-IDF** | **TV2: Văn Duy** | ✅ **Hoàn thành** | Notebook `01_data_exploration_eda.ipynb` đã chạy đủ output; 9 biểu đồ 300 DPI tại `reports/figures/`; `src/features.py` + 18 test pass; Stratified 80/20 seed 2026 (development 6.731 / final test 1.683 khóa); artifacts `text_tfidf_vectorizer.joblib`, `text_feature_extractor.joblib`, `train_test_features.joblib`, `artifact_manifest.json` (có checksum + runtime). CV development: TF-IDF (1,2) Macro F1 **0,5722**. Báo cáo: `reports/eda_feature_engineering.md`. |
-| **4** | **Huấn luyện Mô hình Machine Learning** | **TV3: Duy Khang** | ⏳ **Sẵn sàng triển khai (đã có artifacts TV2)** | Tiếp nhận artifacts từ TV2, làm việc trên `03_sentiment_modeling_ml.ipynb` và `src/models.py`, huấn luyện và tinh chỉnh 5 thuật toán Machine Learning (Naive Bayes, Logistic Regression, Linear SVM, Random Forest, Stacking Ensemble) bằng Stratified 5-Fold Cross Validation trên tập Development; lưu checkpoint model tốt nhất vào `models/best_sentiment_model.joblib`. |
-| **5** | **Đánh giá Final Test, Insight & Demo** | **TV4: Thành Trung** | ⏳ **Chờ TV3 bàn giao** | Tiếp nhận model tốt nhất từ TV3, làm việc trên `05_company_sentiment_insights.ipynb`: đánh giá Final Test độc lập đúng 1 lần (Macro F1, Precision, Recall, Confusion Matrix, Error Analysis), trích xuất WordCloud theo công ty và xây dựng Web Demo tương tác (Streamlit/Gradio). |
+| **4** | **Huấn luyện Mô hình Machine Learning** | **TV3: Duy Khang** | ✅ **Hoàn thành** | `03_sentiment_modeling_ml.ipynb` + `src/models.py` (12 test pass): so sánh `class_weight='balanced'` vs SMOTE (SMOTE bọc trong Pipeline theo từng fold, chống leakage), GridSearchCV tune 5 thuật toán (Naive Bayes, Logistic Regression, Linear SVM, Random Forest, Stacking Ensemble `[MNB,LR,SVM,RF]→LR`) bằng Stratified 5-Fold CV trên Development set (`X_train`, không đụng Final Test). Model tốt nhất: **Logistic Regression** (`C=1.0`, SMOTE), CV Macro F1 **0,5727**, khóa tại `models/best_sentiment_model.joblib`. Báo cáo: [reports/modeling_hyperparameter_tuning.md](reports/modeling_hyperparameter_tuning.md). |
+| **5** | **Đánh giá Final Test, Insight & Demo** | **TV4: Thành Trung** | ⏳ **Sẵn sàng triển khai (đã có model từ TV3)** | Tiếp nhận model tốt nhất từ TV3, làm việc trên `05_company_sentiment_insights.ipynb`: đánh giá Final Test độc lập đúng 1 lần (Macro F1, Precision, Recall, Confusion Matrix, Error Analysis), trích xuất WordCloud theo công ty và xây dựng Web Demo tương tác (Streamlit/Gradio). |
 | **6** | **Tổng hợp Báo cáo Word & Slide trình chiếu** | **TV1 & Cả nhóm** | ⏳ **Giai đoạn cuối** | Soạn thảo toàn văn Báo cáo Word/PDF và hoàn thiện Slide PowerPoint theo đúng cấu trúc đề cương `reports/De_Cuong_Do_An_Mon_Hoc_May_Hoc.md`. |
 
 
