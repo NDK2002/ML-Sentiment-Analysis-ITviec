@@ -33,6 +33,7 @@ from src.tv4_analysis import (
     add_manual_error_review,
     build_cv_ranking,
     build_error_table,
+    ensure_estimator_compatibility,
     evaluate_predictions,
     select_error_examples,
     sha256_file,
@@ -196,6 +197,7 @@ def run(force: bool = False) -> dict:
     with warnings.catch_warnings():
         warnings.simplefilter("ignore", InconsistentVersionWarning)
         model = joblib.load(MODEL_PATH)
+    ensure_estimator_compatibility(model)
     if split["X_test"].shape[1] != getattr(model, "n_features_in_", -1):
         raise ValueError("Model và Final Test không cùng feature contract.")
     if not hasattr(model, "predict_proba"):

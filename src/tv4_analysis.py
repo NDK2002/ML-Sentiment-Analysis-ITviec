@@ -193,12 +193,34 @@ def add_manual_error_review(examples: pd.DataFrame) -> pd.DataFrame:
     return reviewed
 
 
+def ensure_estimator_compatibility(estimator: object) -> None:
+    """Ensure estimators unpickled across scikit-learn versions remain operational.
+
+    For example, models pickled with scikit-learn >=1.8/1.9 where LogisticRegression.multi_class
+    was removed/deprecated will raise AttributeError in scikit-learn <=1.6 if multi_class is missing.
+    """
+    if hasattr(estimator, "steps"):
+        for _, step in getattr(estimator, "steps", []):
+            ensure_estimator_compatibility(step)
+    if hasattr(estimator, "named_steps"):
+        for step in getattr(estimator, "named_steps", {}).values():
+            ensure_estimator_compatibility(step)
+    if hasattr(estimator, "estimators_"):
+        for sub_est in getattr(estimator, "estimators_", []):
+            ensure_estimator_compatibility(sub_est)
+    if getattr(estimator, "__class__", None) is not None:
+        if estimator.__class__.__name__ == "LogisticRegression":
+            if not hasattr(estimator, "multi_class"):
+                estimator.multi_class = "auto"
+
+
 def load_inference_bundle(project_root: str | Path) -> dict:
     """Load and validate the deployable text-only inference artifacts."""
     root = Path(project_root)
     model_path = root / "models" / "best_sentiment_model.joblib"
     vectorizer_path = root / "models" / "text_tfidf_vectorizer.joblib"
     model = joblib.load(model_path)
+    ensure_estimator_compatibility(model)
     vectorizer = joblib.load(vectorizer_path)
     model_width = int(getattr(model, "n_features_in_", -1))
     vectorizer_width = len(getattr(vectorizer, "vocabulary_", {}))
@@ -211,7 +233,10 @@ def load_inference_bundle(project_root: str | Path) -> dict:
     preprocessor = TextPreprocessor(root / "data" / "dictionaries")
     # Pay the tokenizer's one-time import cost while the cached resource loads,
     # so the first user prediction has the same responsive latency as later ones.
-    preprocessor.clean_advance_text("môi trường làm việc tốt")
+    sample_text = preprocessor.clean_advance_text("môi trường làm việc tốt")
+    # Warm up model prediction to verify inference pipeline
+    sample_mat = vectorizer.transform([sample_text])
+    model.predict_proba(sample_mat)
     return {
         "model": model,
         "vectorizer": vectorizer,

@@ -5,6 +5,8 @@ from src.tv4_analysis import (
     build_cv_ranking,
     classify_error_reason,
     evaluate_predictions,
+    load_inference_bundle,
+    predict_review,
     summarize_metrics,
 )
 
@@ -37,3 +39,18 @@ def test_manual_review_notes_are_attached():
     reviewed = add_manual_error_review(pd.DataFrame({"source_index": [4736]}))
     assert reviewed.iloc[0]["manual_category"] == "Label noise"
     assert "rating 3" in reviewed.iloc[0]["manual_analysis"]
+
+
+def test_load_inference_bundle_and_predict_review():
+    from pathlib import Path
+    import pytest
+
+    bundle = load_inference_bundle(Path(__file__).resolve().parents[1])
+    assert bundle["feature_count"] == 5000
+    assert bundle["classes"] == ("Negative", "Neutral", "Positive")
+
+    result = predict_review(bundle, "Lương thấp, quản lý thiếu minh bạch và thường xuyên phải OT không lương.")
+    assert result["label"] in ("Negative", "Neutral", "Positive")
+    assert sum(result["probabilities"].values()) == pytest.approx(1.0, rel=1e-3)
+    assert result["active_feature_count"] > 0
+    assert len(result["top_tokens"]) > 0
