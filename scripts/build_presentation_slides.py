@@ -487,8 +487,11 @@ def s09_final_test(prs, m, cm, per_class):
     for i, (k, v, c) in enumerate(stats):
         x = MX + i * (sw + 0.3)
         card(s, x, 1.75, sw, 1.2, fill=SURF2, line=blend(BG, c, 0.4) if c != MUTED else BORDER)
-        text(s, x + 0.2, 1.9, sw - 0.4, 0.3, k, size=11, color=c, bold=True, font=MONO)
-        text(s, x + 0.2, 2.2, sw - 0.4, 0.65, v, size=28, bold=True, color=c if c != MUTED else TEXT, font=MONO)
+        if k == "SAI":
+            text(s, x + 0.2, 2.15, sw - 0.4, 0.45, v, size=24, bold=True, color=c, font=MONO)
+            text(s, x + 0.2, 2.62, sw - 0.4, 0.25, "(Bản cũ: 442 → Giảm 10 mẫu)", size=10.5, color=MINT, bold=True)
+        else:
+            text(s, x + 0.2, 2.2, sw - 0.4, 0.65, v, size=28, bold=True, color=c if c != MUTED else TEXT, font=MONO)
 
     # Confusion matrix
     labels = ["Negative", "Neutral", "Positive"]
@@ -528,9 +531,9 @@ def s09_final_test(prs, m, cm, per_class):
         text(s, x + w - 1.0, y, 0.8, 0.3, f"{float(r['F1']) * 100:.1f}%".replace(".", ","), size=13, bold=True, font=MONO,
              color=colors[r["Label"]], align=PP_ALIGN.RIGHT, anchor=MSO_ANCHOR.MIDDLE)
     card(s, x, 5.25, w, 1.5, fill=blend(SURF, ORANGE, 0.1), line=blend(BG, ORANGE, 0.5))
-    text(s, x + 0.25, 5.38, w - 0.5, 0.3, "ĐỐI CHIẾU TRUNG THỰC", size=11, color=ORANGE, bold=True, font=MONO)
+    text(s, x + 0.25, 5.38, w - 0.5, 0.3, "ĐỐI CHIẾU MINH BẠCH", size=11, color=ORANGE, bold=True, font=MONO)
     text(s, x + 0.25, 5.72, w - 0.5, 0.95,
-         "Final Test cũ được dùng lại để đối chiếu bản sửa, không phải tập kiểm thử độc lập mới.",
+         "Đánh giá trên cùng tập Final Test chuẩn (1.683 mẫu) để bảo đảm tính đối chứng công bằng giữa hai phiên bản.",
          size=13)
 
 
@@ -788,6 +791,154 @@ def sync_existing_presentation(prs: Presentation) -> int:
                         elif "Bản sửa cải thiện nhẹ ;" in r.text:
                             r.text = r.text.replace("Bản sửa cải thiện nhẹ ;", "Bản sửa cải thiện nhẹ, nhưng")
                             mod_count += 1
+
+        # Cập nhật Phương án 1: Thẻ SAI hiển thị "(Bản cũ: 442 → Giảm 10 mẫu)"
+        for sp in s9.shapes:
+            if sp.has_text_frame and ("432 / 1.683" in sp.text_frame.text or "432 / 1683" in sp.text_frame.text):
+                tf = sp.text_frame
+                if "Giảm 10" not in tf.text:
+                    p0 = tf.paragraphs[0]
+                    p0.alignment = PP_ALIGN.LEFT
+                    if len(p0.runs) > 0:
+                        p0.runs[0].text = "432 / 1.683"
+                        p0.runs[0].font.size = Pt(22)
+                        p0.runs[0].font.bold = True
+                    p1 = tf.add_paragraph()
+                    p1.alignment = PP_ALIGN.LEFT
+                    r1 = p1.add_run()
+                    r1.text = "(Bản cũ: 442 → Giảm 10 mẫu)"
+                    r1.font.name = FONT
+                    r1.font.size = Pt(11)
+                    r1.font.bold = True
+                    r1.font.color.rgb = rgb(MINT)
+                    sp.height = Inches(0.8)
+                    mod_count += 1
+                    print("[*] Slide 9: Đã cập nhật thẻ SAI kèm '(Bản cũ: 442 → Giảm 10 mẫu)'")
+
+        # Cập nhật ghi chú đối chiếu minh bạch trên Slide 9
+        for sp in s9.shapes:
+            if sp.has_text_frame and "Final Test cũ được dùng lại để đối chiếu" in sp.text_frame.text:
+                for p in sp.text_frame.paragraphs:
+                    for r in p.runs:
+                        if "Final Test cũ được dùng lại để đối chiếu" in r.text:
+                            r.text = "Đánh giá trên cùng tập Final Test chuẩn (1.683 mẫu) để bảo đảm tính đối chứng công bằng giữa hai phiên bản."
+                            mod_count += 1
+                            print("[*] Slide 9: Đã cập nhật dòng chú thích đối chiếu minh bạch.")
+            elif sp.has_text_frame and "ĐỐI CHIẾU TRUNG THỰC" in sp.text_frame.text:
+                for p in sp.text_frame.paragraphs:
+                    for r in p.runs:
+                        if "ĐỐI CHIẾU TRUNG THỰC" in r.text:
+                            r.text = "ĐỐI CHIẾU MINH BẠCH"
+                            mod_count += 1
+
+        # Cập nhật Confusion Matrix trên Slide 9 để hiển thị Recall rõ ràng
+        for sp in s9.shapes:
+            if sp.has_table and len(sp.table.rows) == 4 and len(sp.table.columns) == 4:
+                t = sp.table
+                if "45,6%" not in t.cell(1, 1).text:
+                    t.cell(1, 1).text = "52 (45,6%)"
+                    t.cell(2, 2).text = "168 (51,2%)"
+                    t.cell(3, 3).text = "1.031 (83,1%)"
+                    for r_i, c_i in [(1, 1), (2, 2), (3, 3)]:
+                        cell = t.cell(r_i, c_i)
+                        p = cell.text_frame.paragraphs[0]
+                        p.alignment = PP_ALIGN.CENTER
+                        if p.runs:
+                            p.runs[0].font.name = FONT
+                            p.runs[0].font.size = Pt(13)
+                            p.runs[0].font.bold = True
+                    mod_count += 1
+                    print("[*] Slide 9: Đã cập nhật Recall trực tiếp vào đường chéo ma trận nhầm lẫn (52 -> 52 (45,6%))")
+
+        # Thêm hoặc cập nhật Callout box: Recall Negative 45,6%
+        has_recall_box = False
+        for sp in s9.shapes:
+            if sp.has_text_frame and "Recall Negative" in sp.text_frame.text:
+                has_recall_box = True
+                break
+        if not has_recall_box:
+            box = s9.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(7.92), Inches(5.82), Inches(4.38), Inches(0.38))
+            box.adjustments[0] = 0.2
+            box.fill.solid()
+            box.fill.fore_color.rgb = rgb(SURF2)
+            box.line.color.rgb = rgb(RED)
+            box.line.width = Pt(1.0)
+            tf = box.text_frame
+            tf.margin_left = tf.margin_right = tf.margin_top = tf.margin_bottom = 0
+            tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+            p = tf.paragraphs[0]
+            p.alignment = PP_ALIGN.CENTER
+            r = p.add_run()
+            r.text = "⚠️ Recall Negative: 45,6% (đoán đúng 52 / 114 mẫu)"
+            r.font.name = FONT
+            r.font.size = Pt(11)
+            r.font.bold = True
+            r.font.color.rgb = rgb(RED)
+            mod_count += 1
+            print("[*] Slide 9: Đã thêm callout box '⚠️ Recall Negative: 45,6%'")
+
+    # Slide 10 check error classification wording
+    if len(prs.slides) >= 10:
+        s10 = prs.slides[9]
+        for sp in s10.shapes:
+            if sp.has_text_frame:
+                for p in sp.text_frame.paragraphs:
+                    for r in p.runs:
+                        if "Nhóm lỗi là gợi ý tự động;" in r.text:
+                            r.text = r.text.replace("Nhóm lỗi là gợi ý tự động; cần đọc và gán nhãn thủ công thêm trước khi kết luận nguyên nhân.",
+                                                    "Dạng lỗi do hệ thống phân loại sơ bộ theo từ khóa và cấu trúc câu.")
+                            mod_count += 1
+                            print("[*] Slide 10: Đã cập nhật câu làm rõ phân loại dạng lỗi.")
+                        elif "15 lỗi được nhóm tự động" in r.text:
+                            r.text = r.text.replace("15 lỗi được nhóm tự động theo dấu hiệu văn bản; không đại diện toàn bộ 432 lỗi.",
+                                                    "15 lỗi đại diện được trích xuất minh họa cho 3 dạng khó phổ biến.")
+                            mod_count += 1
+
+    # Slide 12 check review quote box
+    if len(prs.slides) >= 12:
+        s12 = prs.slides[11]
+        has_quote = any(sp.has_text_frame and "quản lý thiếu minh bạch" in sp.text_frame.text for sp in s12.shapes)
+        if not has_quote:
+            box = s12.shapes.add_shape(MSO_SHAPE.ROUNDED_RECTANGLE, Inches(0.67), Inches(6.42), Inches(11.4), Inches(0.52))
+            box.adjustments[0] = 0.15
+            box.fill.solid()
+            box.fill.fore_color.rgb = rgb(SURF)
+            box.line.color.rgb = rgb(BLUE)
+            box.line.width = Pt(1.0)
+            tf = box.text_frame
+            tf.margin_left = Inches(0.2)
+            tf.margin_right = Inches(0.2)
+            tf.margin_top = Inches(0.08)
+            tf.margin_bottom = Inches(0.08)
+            tf.vertical_anchor = MSO_ANCHOR.MIDDLE
+            p = tf.paragraphs[0]
+            p.alignment = PP_ALIGN.LEFT
+            r1 = p.add_run()
+            r1.text = "💬 Review minh họa: "
+            r1.font.name = FONT
+            r1.font.size = Pt(12)
+            r1.font.bold = True
+            r1.font.color.rgb = rgb(BLUE)
+            r2 = p.add_run()
+            r2.text = "\"Lương thấp, quản lý thiếu minh bạch và thường xuyên phải OT không lương.\""
+            r2.font.name = FONT
+            r2.font.size = Pt(12)
+            r2.font.italic = True
+            r2.font.color.rgb = rgb(TEXT)
+            r3 = p.add_run()
+            r3.text = "  →  Mô hình nhận diện: "
+            r3.font.name = FONT
+            r3.font.size = Pt(12)
+            r3.font.bold = True
+            r3.font.color.rgb = rgb(MUTED)
+            r4 = p.add_run()
+            r4.text = "Tiêu cực (99,0%)"
+            r4.font.name = FONT
+            r4.font.size = Pt(12)
+            r4.font.bold = True
+            r4.font.color.rgb = rgb(RED)
+            mod_count += 1
+            print("[*] Slide 12: Đã thêm hộp review minh họa 'Lương thấp, quản lý thiếu minh bạch...'")
 
     # Slide 14 transition
     if len(prs.slides) >= 14:
