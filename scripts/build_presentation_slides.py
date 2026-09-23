@@ -212,9 +212,9 @@ def load_metrics():
 
 # --------------------------------------------------------------------------- slides (Scratch generation)
 def s01_cover(prs):
-    s = new_slide(prs, 1, "", "", 40,
-                  "Kính chào Thầy Cáp Phạm Đình Thăng cùng thầy cô và các bạn. Giới thiệu đề tài: Phân tích cảm xúc "
-                  "đánh giá công ty ITviec. Dữ liệu: 8.414 review, 3 lớp Positive, Neutral, Negative. (~40s)")
+    s = new_slide(prs, 1, "", "", 25,
+                  "Kính chào Thầy Cáp Phạm Đình Thăng cùng các bạn. Nhóm sinh viên năm nhất báo cáo đồ án phân tích "
+                  "cảm xúc 8.414 review ITviec ba lớp Tích cực, Trung tính, Tiêu cực. (~25s)")
     mark_path = ROOT / "assets" / "sentiment-ml-mark.png"
     if mark_path.exists():
         s.shapes.add_picture(str(mark_path), Inches(9.01), Inches(1.61), Inches(3.39), Inches(3.39))
@@ -244,9 +244,9 @@ def s01_cover(prs):
 
 
 def s02_problem(prs):
-    s = new_slide(prs, 2, "01 · Bài toán", "Dữ liệu lệch mạnh và nhãn chỉ là nhãn yếu", 45,
-                  "Mất cân bằng lớp: Positive 73,8%, Negative 6,8% (tỉ lệ gần 11:1). Accuracy dễ gây ngộ nhận, "
-                  "vì vậy Macro F1 là thước đo chính. Nhãn yếu suy từ số sao, chứa nhiều câu vừa khen vừa chê. (~45s)")
+    s = new_slide(prs, 2, "01 · Bài toán", "Dữ liệu lệch mạnh và nhãn chỉ là nhãn yếu", 35,
+                  "Hai thử thách: mất cân bằng lớp 11:1 (73,8% vs 6,8%) nên cần Macro F1 làm thước đo chính. "
+                  "Nhãn yếu suy từ số sao, lời review thường vừa khen vừa chê. (~35s)")
     card(s, MX, 1.8, 4.0, 4.95, fill=SURF2)
     text(s, MX + 0.3, 2.05, 3.4, 0.3, "MẤT CÂN BẰNG LỚP", size=11, color=ORANGE, bold=True, font=MONO)
     text(s, MX + 0.3, 2.5, 3.4, 1.4, "11 : 1", size=72, bold=True, color=ORANGE, font=MONO)
@@ -276,9 +276,9 @@ def s02_problem(prs):
 
 
 def s03_pipeline(prs, m):
-    s = new_slide(prs, 3, "02 · Kiến trúc", "Pipeline từ dữ liệu nguồn đến ứng dụng", 45,
-                  "Toàn bộ luồng: thu thập → tiền xử lý 2 tầng → TF-IDF → huấn luyện 5 mô hình có SMOTE → app Streamlit. "
-                  "Sau sửa tiền xử lý, model đạt Macro F1 0,5764 trên Final Test cũ. (~45s)")
+    s = new_slide(prs, 3, "02 · Kiến trúc", "Pipeline từ dữ liệu nguồn đến ứng dụng", 35,
+                  "Quy trình 5 bước: làm sạch 2 tầng, TF-IDF, thử 5 mô hình với SMOTE trên tập Development. "
+                  "Bản retrained_v2 đạt Macro F1 0,5764 trên cùng Final Test cũ làm đối chứng. (~35s)")
     steps = [
         ("01", "Thu thập", "8.414 review\nITviec", BLUE),
         ("02", "Tiền xử lý", "Unicode NFC\nunderthesea", MINT),
@@ -306,9 +306,9 @@ def s03_pipeline(prs, m):
 
 
 def s04_preprocessing(prs):
-    s = new_slide(prs, 4, "03 · Tiền xử lý", "Làm sạch văn bản tiếng Việt theo hai tầng", 45,
-                  "Tầng 1 chuẩn hóa cơ bản (Unicode NFC, URL, email, teencode). Tầng 2 tách từ và lọc từ dừng. "
-                  "Giữ từ phủ định và từ chỉ mức độ (lương thấp, thiếu minh bạch, không lương). (~45s)")
+    s = new_slide(prs, 4, "03 · Tiền xử lý", "Làm sạch văn bản tiếng Việt theo hai tầng", 35,
+                  "Tầng 1 chuẩn hóa ký tự và thuật ngữ IT. Tầng 2 tách từ tiếng Việt và tuyệt đối giữ lại "
+                  "từ phủ định (không, chưa) và từ mức độ (thấp, thiếu) để tránh hiểu ngược câu. (~35s)")
     steps = [
         ("Chuẩn hóa cơ bản", "Unicode NFC, URL, email và chữ thường.", BLUE),
         ("Chuẩn hóa tín hiệu", "Emoji, emojicon, teencode và thuật ngữ IT.", MINT),
@@ -339,9 +339,9 @@ def s04_preprocessing(prs):
 
 
 def s05_eda(prs):
-    s = new_slide(prs, 5, "04 · EDA", "Quản lý và lương liên hệ mạnh nhất với rating", 50,
-                  "Tương quan cao nhất: Management (0,7368) và Salary (0,7343). Phân tích chẩn đoán khám phá "
-                  "cho thấy người đánh giá đặc biệt chú trọng yếu tố quản lý và đãi ngộ. (~50s)")
+    s = new_slide(prs, 5, "04 · EDA", "Quản lý và lương liên hệ mạnh nhất với rating", 30,
+                  "Lương và Quản lý tương quan cao nhất với rating (>0,73), văn phòng thấp hơn (~0,54). "
+                  "Pipeline chính chỉ dùng văn bản vì thực tế người dùng không chấm điểm phụ. (~30s)")
     metrics = [
         ("MANAGEMENT VS RATING", "0,7368", MINT),
         ("SALARY VS RATING", "0,7343", YELLOW),
@@ -364,9 +364,9 @@ def s05_eda(prs):
 
 
 def s06_tfidf(prs):
-    s = new_slide(prs, 6, "05 · Đặc trưng", "Bigram cải thiện Macro F1 thêm 0,0153", 45,
-                  "Cấu hình TF-IDF: Unigram + Bigram giúp tăng Macro F1 từ 55,69% lên 57,22%. "
-                  "Chia tập Stratified 80/20: Development 6.731 mẫu, Final Test khóa 1.683 mẫu. (~45s)")
+    s = new_slide(prs, 6, "05 · Đặc trưng", "Bigram cải thiện Macro F1 thêm 0,0153", 35,
+                  "TF-IDF thêm Bigram tăng Macro F1 từ 55,69% lên 57,22%, giữ được cụm 'không lương', 'thiếu minh bạch'. "
+                  "Cấu hình 5.000 đặc trưng, chia tập Stratified 80/20 giữ nguyên tỷ lệ lớp. (~35s)")
     cfg = [("max_features", "5.000", BLUE, "Giới hạn từ vựng để giữ ma trận gọn."),
            ("sublinear_tf", "True", MINT, "Giảm ảnh hưởng của từ lặp nhiều lần."),
            ("min_df", "2", YELLOW, "Loại các token chỉ xuất hiện đúng một lần.")]
@@ -397,9 +397,9 @@ def s06_tfidf(prs):
 
 
 def s07_models(prs):
-    s = new_slide(prs, 7, "06 · Mô hình", "Năm mô hình dùng cùng một contract TF-IDF", 45,
-                  "Năm mô hình: Naive Bayes, Logistic Regression, Linear SVM, Random Forest, Stacking. "
-                  "SMOTE bọc trong Pipeline, chỉ sinh mẫu trên fold train để chống rò rỉ dữ liệu. (~45s)")
+    s = new_slide(prs, 7, "06 · Mô hình", "Năm mô hình dùng cùng một contract TF-IDF", 35,
+                  "Thử 5 mô hình cơ bản. SMOTE chỉ áp dụng bên trong fold huấn luyện để chống rò rỉ dữ liệu (Data Leakage), "
+                  "giữ nguyên vẹn tập validation. (~35s)")
     models = [("MNB", "Multinomial\nNaive Bayes", BLUE), ("LR", "Logistic\nRegression", MINT),
               ("SVM", "Linear\nSVM", YELLOW), ("RF", "Random\nForest", ORANGE), ("STK", "Stacking\nEnsemble", RED)]
     bw, gap = 2.2, 0.283
@@ -426,9 +426,9 @@ def s07_models(prs):
 
 def s08_leaderboard(prs, cv, m):
     # SỬA TIÊU ĐỀ: Bỏ dấu ; -> dùng gạch ngang –
-    s = new_slide(prs, 8, "07 · Kết quả CV", "Xếp hạng gốc – Logistic Regression cải thiện sau sửa lỗi", 55,
-                  "Biểu đồ thể hiện xếp hạng gốc: LR đạt 0,5727, SVM đạt 0,5724. Khoảng cách top 2 chỉ 0,0003. "
-                  "LR được chọn vì trả xác suất cho demo. Sau khi sửa tiền xử lý, CV riêng tăng lên 0,5815. (~55s)")
+    s = new_slide(prs, 8, "07 · Kết quả CV", "Xếp hạng gốc – Logistic Regression cải thiện sau sửa lỗi", 40,
+                  "Xếp hạng ban đầu: LR (0,5727) và SVM (0,5724) bám sát nhau. Chọn LR vì trả xác suất. "
+                  "Sau sửa tiền xử lý, chạy phép CV riêng tăng lên 0,5815 (không trừ điểm trực tiếp vào bảng cũ). (~40s)")
     cd = CategoryChartData()
     cd.categories = [r["Model"] for r in cv]
     cd.add_series("CV Macro F1", [round(float(r["CV Macro F1 Mean"]), 4) for r in cv])
@@ -473,9 +473,9 @@ def s08_leaderboard(prs, cv, m):
 
 def s09_final_test(prs, m, cm, per_class):
     # SỬA TIÊU ĐỀ: Bỏ dấu ; -> dùng dấu phẩy ', nhưng'
-    s = new_slide(prs, 9, "08 · Final Test", "Bản sửa cải thiện nhẹ, nhưng lớp Negative vẫn khó", 65,
-                  "Trên 1.683 mẫu Final Test cũ: Accuracy 74,33%, Macro F1 0,5764, Weighted F1 0,7540. "
-                  "Sai 432 mẫu (giảm 10 mẫu). Bẫy Accuracy: Positive F1 đạt 0,86 nhưng Negative chỉ đạt 0,39. (~65s)")
+    s = new_slide(prs, 9, "08 · Final Test", "Bản sửa cải thiện nhẹ, nhưng lớp Negative vẫn khó", 45,
+                  "Final Test cũ: Accuracy 74,33%, Macro F1 0,5764, sai 432 mẫu. Lớp Negative: tìm đúng 52/114 mẫu, "
+                  "Recall chỉ đạt 45,6% (F1 0,3910). Nhận diện lời chê là thách thức lớn nhất của bài toán. (~45s)")
     acc = f"{float(m['accuracy']) * 100:.2f}%".replace(".", ",")
     mf1 = f"{float(m['macro_f1']):.4f}".replace(".", ",")
     wf1 = f"{float(m['weighted_f1']):.4f}".replace(".", ",")
@@ -535,9 +535,9 @@ def s09_final_test(prs, m, cm, per_class):
 
 
 def s10_errors(prs, m):
-    s = new_slide(prs, 10, "09 · Error Analysis", "15 lỗi minh họa cho thấy ba dạng khó thường gặp", 50,
-                  "432 trên 1.683 mẫu sai (25,7%). Phân tích 15 ca lỗi minh họa: 7 ca review nhiều vế, "
-                  "6 ca cấu trúc phủ định phức tạp, 2 ca nhãn theo rating chưa rõ ràng. (~50s)")
+    s = new_slide(prs, 10, "09 · Error Analysis", "15 lỗi minh họa cho thấy ba dạng khó thường gặp", 35,
+                  "Phân loại 15 ca lỗi minh họa: 7 ca review nhiều vế đối lập (vừa khen vừa chê), 6 ca cấu trúc "
+                  "phủ định khó, 2 ca nhãn rating chưa rõ. Giúp hiểu ranh giới của mô hình tuyến tính. (~35s)")
     err, tot = int(m["error_count"]), int(m["test_count"])
     card(s, MX, 1.8, 3.2, 4.95, fill=SURF2, line=blend(BG, RED, 0.4))
     text(s, MX + 0.3, 2.05, 2.6, 0.3, "DỰ ĐOÁN SAI", size=11, color=RED, bold=True, font=MONO)
@@ -565,9 +565,9 @@ def s10_errors(prs, m):
 
 
 def s11_insight(prs, dist):
-    s = new_slide(prs, 11, "10 · Insight doanh nghiệp", "Salary & benefits thấp nhất ở 4/5 công ty", 50,
-                  "Salary & benefits thấp nhất ở 4/5 công ty (FPT, NashTech, Bosch, KMS). Riêng VNG thấp nhất ở Management. "
-                  "Lưu ý cỡ mẫu khác nhau giữa các công ty; đây là phân tích mô tả, không xếp hạng. (~50s)")
+    s = new_slide(prs, 11, "10 · Insight doanh nghiệp", "Salary & benefits thấp nhất ở 4/5 công ty", 35,
+                  "Khám phá 5 công ty: Lương & đãi ngộ thấp nhất ở 4/5 công ty, riêng VNG thấp nhất ở Quản lý. "
+                  "Đây là phân tích mô tả trên dữ liệu thu thập, nhóm không xếp hạng công ty thực tế. (~35s)")
     order = ["KMS Technology", "VNG Corporation", "NashTech", "FPT Software",
              "Bosch Global Software Technologies Company Limited"]
     short = {"KMS Technology": "KMS", "VNG Corporation": "VNG", "NashTech": "NashTech", "FPT Software": "FPT",
@@ -613,9 +613,9 @@ def s11_insight(prs, dist):
 
 
 def s13_features(prs):
-    s = new_slide(prs, 12, "11 · Diễn giải", "TF-IDF cho biết độ nổi bật, không cho biết chiều tác động", 45,
-                  "Với câu demo, mô hình dự đoán Negative 99,0%. “không lương” và “lương thấp” được giữ lại "
-                  "dưới dạng đặc trưng riêng. Trọng số TF-IDF cho biết độ nổi bật, không cho biết chiều tác động. (~45s)")
+    s = new_slide(prs, 12, "11 · Diễn giải", "TF-IDF cho biết độ nổi bật, không cho biết chiều tác động", 35,
+                  "Minh họa câu test OT không lương: Bản sửa nhận diện Tiêu cực 99,0%. Bigram 'thường_xuyên ot', "
+                  "'không lương' nổi bật rõ nét. Trục biểu đồ nhân 100 để quan sát, không phải xác suất. (~35s)")
     tokens = [("xuyên", 0.615), ("lý", 0.606), ("không lương", 0.384),
               ("lương", 0.296), ("không", 0.138)]
     cd = CategoryChartData()
@@ -661,10 +661,9 @@ def s13_features(prs):
 
 
 def s14_lessons(prs):
-    s = new_slide(prs, 13, "12 · Đánh giá", "Bản sửa tốt hơn một chút, nhưng lớp Negative vẫn khó", 50,
-                  "Tóm tắt: Đã hoàn thành pipeline text-only, 5-fold CV, đối chiếu Final Test cũ. "
-                  "Bài học: Macro F1 quan trọng hơn Accuracy, SMOTE phải nằm trong từng fold. "
-                  "Hạn chế: Weak label có nhiễu, Negative F1 chỉ 0,3910. Chênh CV–Test 0,0052, chưa thấy lệch lớn. (~50s)")
+    s = new_slide(prs, 13, "12 · Đánh giá", "Bản sửa tốt hơn một chút, nhưng lớp Negative vẫn khó", 35,
+                  "Nhóm sinh viên năm nhất hoàn thành trọn vẹn pipeline học máy. Hạn chế: nhãn yếu từ rating, "
+                  "Negative F1 chỉ 0,3910, mô hình TF-IDF chưa hiểu ngữ nghĩa sâu của câu phức. (~35s)")
     cols = [
         ("ĐÃ HOÀN THÀNH", MINT, ["Pipeline text-only end-to-end", "Chọn model bằng 5-fold CV",
                                  "Đối chiếu lại Final Test cũ", "Web demo Streamlit"]),
@@ -683,10 +682,9 @@ def s14_lessons(prs):
 
 
 def s15_closing(prs):
-    s = new_slide(prs, 14, "13 · Kết luận", "Đóng góp của đồ án và bước phát triển tiếp theo", 35,
-                  "Kết luận: Đóng góp pipeline ba lớp có thể tái lập, đánh giá đúng quy trình, ứng dụng minh họa. "
-                  "Hướng phát triển: Gán nhãn thủ công tập chuẩn, ABSA khía cạnh, Transformer tiếng Việt. "
-                  "Kết thúc nội dung chính. Tiếp theo: live demo. (~35s)")
+    s = new_slide(prs, 14, "13 · Kết luận", "Đóng góp của đồ án và bước phát triển tiếp theo", 30,
+                  "Đóng góp: Pipeline chuẩn mực, đánh giá minh bạch, ứng dụng demo. Hướng tới: gán nhãn chuẩn, "
+                  "ABSA khía cạnh, PhoBERT. Kết thúc slide, mời bạn Khang live demo. (~30s)")
     card(s, MX, 1.8, 6.0, 4.95, fill=SURF2)
     text(s, MX + 0.3, 2.0, 5.4, 0.3, "ĐÓNG GÓP", size=11, color=MINT, bold=True, font=MONO)
     text(s, MX + 0.3, 2.45, 5.4, 4.0, [
@@ -718,9 +716,9 @@ def s15_closing(prs):
 
 
 def s12_demo(prs):
-    s = new_slide(prs, 15, "14 · Live demo", "Live demo hệ thống phân tích cảm xúc", 55,
-                  "Bạn Nguyễn Duy Khang dẫn dắt ngắn, sau đó chuyển sang ứng dụng Streamlit để thao tác trực tiếp: "
-                  "1. Chọn review mẫu, 2. Quan sát dự đoán, 3. Kiểm tra đầu vào. (~55s)")
+    s = new_slide(prs, 15, "14 · Live demo", "Live demo hệ thống phân tích cảm xúc", 25,
+                  "Bạn Nguyễn Duy Khang chuyển sang ứng dụng Streamlit đã mở sẵn để thao tác trực tiếp 3 tính năng: "
+                  "Insight doanh nghiệp -> Đánh giá 1 lỗi -> Phân tích review theo thời gian thực (~25s dẫn dắt).")
     card(s, MX, 1.8, 5.0, 4.95, fill=SURF2, line=blend(BG, MINT, 0.4))
     text(s, MX + 0.35, 2.05, 4.3, 0.3, "NGƯỜI TRÌNH BÀY", size=11, color=BLUE, bold=True, font=MONO)
     text(s, MX + 0.35, 2.55, 4.3, 0.7, "NGUYỄN DUY KHANG", size=30, color=MINT, bold=True)
