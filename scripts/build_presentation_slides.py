@@ -215,15 +215,18 @@ def s01_cover(prs):
     s = new_slide(prs, 1, "", "", 40,
                   "Kính chào Thầy Cáp Phạm Đình Thăng cùng thầy cô và các bạn. Giới thiệu đề tài: Phân tích cảm xúc "
                   "đánh giá công ty ITviec. Dữ liệu: 8.414 review, 3 lớp Positive, Neutral, Negative. (~40s)")
-    import random
-    rnd = random.Random(7)
-    cols = [BLUE, MINT, YELLOW, ORANGE, RED]
-    for gx in range(6):
-        for gy in range(9):
-            if rnd.random() < 0.55:
-                c = cols[rnd.randrange(len(cols))]
-                card(s, 9.2 + gx * 0.62, 1.0 + gy * 0.62, 0.46, 0.46,
-                     fill=blend(BG, c, rnd.choice([0.10, 0.18, 0.3])), line=None, radius=0.2)
+    mark_path = ROOT / "assets" / "sentiment-ml-mark.png"
+    if mark_path.exists():
+        s.shapes.add_picture(str(mark_path), Inches(9.01), Inches(1.61), Inches(3.39), Inches(3.39))
+    else:
+        rnd = random.Random(7)
+        cols = [BLUE, MINT, YELLOW, ORANGE, RED]
+        for gx in range(6):
+            for gy in range(9):
+                if rnd.random() < 0.55:
+                    c = cols[rnd.randrange(len(cols))]
+                    card(s, 9.2 + gx * 0.62, 1.0 + gy * 0.62, 0.46, 0.46,
+                         fill=blend(BG, c, rnd.choice([0.10, 0.18, 0.3])), line=None, radius=0.2)
     badge(s, MX, 1.0, "ĐỒ ÁN MÔN HỌC MÁY HỌC  ·  UIT", BLUE, 12, w=4.1)
     text(s, MX, 1.75, 8.2, 2.4, [
         [("PHÂN TÍCH CẢM XÚC", {})],
@@ -744,6 +747,22 @@ def s12_demo(prs):
 def sync_existing_presentation(prs: Presentation) -> int:
     """Scan existing presentation shapes, fix semicolons in titles, ensure transitions."""
     mod_count = 0
+    # Slide 1 check missing / broken image placeholder
+    if len(prs.slides) >= 1:
+        s1 = prs.slides[0]
+        mark_path = ROOT / "assets" / "sentiment-ml-mark.png"
+        if mark_path.exists():
+            for sp in list(s1.shapes):
+                if sp.shape_type == 13:  # Picture
+                    # Check if placeholder is broken/blank (e.g. 67-byte dummy 1x1 png)
+                    if len(sp.image.blob) < 1000:
+                        left, top, w, h = sp.left, sp.top, sp.width, sp.height
+                        elem = sp._element
+                        elem.getparent().remove(elem)
+                        s1.shapes.add_picture(str(mark_path), left, top, w, h)
+                        mod_count += 1
+                        print(f"[*] Slide 1: Đã thay thế ảnh placeholder hỏng ({len(sp.image.blob)} bytes) bằng ảnh logo: {mark_path.name}")
+
     # Slide 8 is index 7
     if len(prs.slides) >= 8:
         s8 = prs.slides[7]
