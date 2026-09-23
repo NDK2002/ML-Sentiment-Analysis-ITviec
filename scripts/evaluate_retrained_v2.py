@@ -17,6 +17,7 @@ from src.features import load_feature_split
 from src.tv4_analysis import (
     LABELS,
     build_error_table,
+    ensure_estimator_compatibility,
     evaluate_predictions,
     select_error_examples,
     sha256_file,
@@ -33,6 +34,7 @@ def main() -> None:
     model_path = MODEL_DIR / "best_sentiment_model.joblib"
     split = load_feature_split(split_path)
     model = joblib.load(model_path)
+    ensure_estimator_compatibility(model)
     y_test = np.asarray(split["y_test"], dtype=object)
     predicted = model.predict(split["X_test"])
     probabilities = model.predict_proba(split["X_test"])
