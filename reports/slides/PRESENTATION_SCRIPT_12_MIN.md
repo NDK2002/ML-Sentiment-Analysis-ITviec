@@ -186,10 +186,9 @@ Sau slide dẫn dắt này, em xin chuyển sang ứng dụng Streamlit đã m�
 
 1. *(~5 giây)* Chuyển sang tab trình duyệt đã mở sẵn trang "Phân tích review" — không mở lại ứng dụng từ đầu để tránh chờ tải.
 2. *(~5 giây)* Ở khung "Thử một tình huống", bấm mẫu **"Nhiều vế"** — *"Môi trường tốt nhưng lương thấp và quản lý chưa thật sự quan tâm nhân viên"*. Đây là ví dụ có cả lời khen và lời chê.
-3. *(~2 giây)* Bấm nút **"Phân tích cảm xúc"**.
-4. *(~8 giây)* Đọc kết quả bên phải: nhãn cảm xúc dự đoán và phần trăm xác suất của lớp đó, rồi chỉ nhanh vào biểu đồ ba thanh xác suất Positive, Neutral, Negative.
-5. *(~10 giây)* Kéo xuống phần "Tín hiệu trong văn bản", đọc khung "SAU CHUẨN HÓA & TÁCH TỪ" để cho thấy văn bản đã được làm sạch và tách từ đúng như đã trình bày ở slide 4.
-6. *(~10 giây)* Chỉ vào bảng "Token TF-IDF nổi bật" bên cạnh, nêu một hoặc hai token có trọng số cao nhất để nối lại với phần giải thích ở slide 12.
+3. *(~8 giây)* Chờ kết quả tự hiện bên phải, đọc nhãn cảm xúc dự đoán và phần trăm xác suất của lớp đó, rồi chỉ nhanh vào biểu đồ ba thanh xác suất Positive, Neutral, Negative.
+4. *(~10 giây)* Kéo xuống phần "Tín hiệu trong văn bản", đọc khung "SAU CHUẨN HÓA & TÁCH TỪ" để cho thấy văn bản đã được làm sạch và tách từ đúng như đã trình bày ở slide 4.
+5. *(~10 giây)* Chỉ vào bảng "Token TF-IDF nổi bật" bên cạnh, nêu một hoặc hai token có trọng số cao nhất để nối lại với phần giải thích ở slide 12.
 
 Phần demo của nhóm xin kết thúc. Nhóm cảm ơn thầy và các bạn đã lắng nghe, và nhóm xin sẵn sàng trả lời câu hỏi.
 
@@ -197,7 +196,7 @@ Phần demo của nhóm xin kết thúc. Nhóm cảm ơn thầy và các bạn �
 
 # PHẦN B — DEMO WEB TRỰC TIẾP
 
-**Lưu ý phạm vi:** Bản rút gọn ở slide 15 (40 giây) là bản dùng trong đúng 12 phút trình bày chính. Phần B dưới đây là kịch bản demo đầy đủ, đi qua cả 4 trang của web app theo đúng thứ tự trong kế hoạch demo của nhóm (Overview → Insight doanh nghiệp → Benchmark & Đánh giá lỗi → Real-time Prediction) — dùng khi còn thời gian, khi thầy cô yêu cầu xem thêm, hoặc trong phần hỏi đáp. Không cố nhồi cả phần B vào slide 15.
+**Lưu ý phạm vi:** Bản rút gọn ở slide 15 (40 giây) là bản dùng trong đúng 12 phút trình bày chính. Phần B dưới đây là kịch bản demo đầy đủ, đi qua cả 4 trang của web app (Tổng quan → Insight doanh nghiệp → Mô hình & đánh giá → Phân tích review) — dùng khi còn thời gian, khi thầy cô yêu cầu xem thêm, hoặc trong phần hỏi đáp. Không cố nhồi cả phần B vào slide 15.
 
 ## Chuẩn bị trước buổi trình bày
 
@@ -230,7 +229,7 @@ Phần demo của nhóm xin kết thúc. Nhóm cảm ơn thầy và các bạn �
 1. Chọn **Insight doanh nghiệp** ở sidebar.
 2. Chọn doanh nghiệp **FPT Software** (công ty có nhiều review nhất, 2.014 review).
 3. Chỉ vào biểu đồ cơ cấu cảm xúc (donut) và biểu đồ điểm trải nghiệm theo 5 khía cạnh.
-4. Chuyển WordCloud từ **Positive** sang **Negative**.
+4. Chuyển WordCloud từ **Tích cực** sang **Tiêu cực**.
 
 **Lời nói:**
 
@@ -238,45 +237,44 @@ Phần demo của nhóm xin kết thúc. Nhóm cảm ơn thầy và các bạn �
 
 **Không nên:** đọc hết bảng từ khoá bên phải; chỉ cần nêu 2–3 từ đứng đầu.
 
-## Demo 3 — Benchmark & Đánh giá lỗi
+## Demo 3 — Mô hình & đánh giá
 
 **Thời gian:** 40 giây
 
 **Thao tác:**
 
-1. Chọn **Benchmark** ở sidebar. Chỉ vào Logistic Regression trên biểu đồ xếp hạng gốc, rồi chỉ dòng giải thích CV bản sửa bên dưới.
-2. Chọn **Đánh giá & lỗi**. Chỉ vào ma trận nhầm lẫn và biểu đồ Precision/Recall/F1 theo lớp.
-3. Ở khung **Khám phá 15 lỗi minh họa**, lọc Nhãn thật là **Negative**, mở một mẫu để đọc review và dạng lỗi được gợi ý.
+1. Chọn **Mô hình & đánh giá** ở sidebar. Ở phần **So sánh mô hình**, chỉ vào Logistic Regression trên biểu đồ xếp hạng gốc, rồi chỉ dòng giải thích CV bản sửa bên dưới.
+2. Cuộn đến **Chất lượng trên Final Test**. Chỉ vào ma trận nhầm lẫn và biểu đồ Precision/Recall/F1 theo lớp.
+3. Cuộn đến **Khám phá 15 lỗi minh họa**, lọc Nhãn thật là **Negative**, mở một mẫu để đọc review và dạng lỗi được gợi ý.
 
 **Lời nói:**
 
-> Biểu đồ Benchmark là lần xếp hạng ban đầu: Logistic Regression đứng đầu năm mô hình với Macro F1 0,5727. Sau sửa tiền xử lý, nhóm chọn bản mới bằng một phép CV riêng, đạt 0,5815; chưa chạy lại bảng xếp hạng của bốn mô hình kia. Trang Đánh giá và lỗi cho thấy bản sửa đạt Macro F1 0,5764 trên Final Test cũ. Ma trận nhầm lẫn cho thấy model tìm đúng 52 trên 114 review Negative, tức Recall 45,6%. Phần bên dưới giúp đọc từng lỗi thật; dạng lỗi hiển thị là gợi ý tự động, chưa phải kết luận đã gán thủ công.
+> Biểu đồ đầu trang là lần xếp hạng ban đầu: Logistic Regression đứng đầu năm mô hình với Macro F1 0,5727. Sau sửa tiền xử lý, nhóm chọn bản mới bằng một phép CV riêng, đạt 0,5815; chưa chạy lại bảng xếp hạng của bốn mô hình kia. Phần Final Test bên dưới cho thấy bản sửa đạt Macro F1 0,5764 trên tập kiểm tra cũ. Ma trận nhầm lẫn cho thấy model tìm đúng 52 trên 114 review Negative, tức Recall 45,6%. Phần cuối trang giúp đọc từng lỗi thật; dạng lỗi hiển thị là gợi ý tự động, chưa phải kết luận đã gán thủ công.
 
-**Không nên:** đọc hết bảng "Nhật ký thực nghiệm" của cả 5 mô hình; chỉ nêu 1–2 dòng đầu.
+**Không nên:** mở và đọc hết bảng kết quả của cả 5 mô hình; chỉ nêu hai model đứng đầu.
 
-## Demo 4 — Phân tích review (Real-time Prediction)
+## Demo 4 — Phân tích review
 
 **Thời gian:** 40 giây *(bản dùng trong slide 15 của phần chính)*
 
 **Thao tác:**
 
 1. Chọn **Phân tích review** ở sidebar.
-2. Ở khung "Thử một tình huống", bấm mẫu **"Tiêu cực"** — *"Lương thấp, quản lý thiếu minh bạch và thường xuyên phải OT không lương."* Đây là câu test đã được định nghĩa sẵn trong kế hoạch demo của nhóm.
-3. Bấm **"Phân tích cảm xúc"**.
-4. Đọc nhãn và xác suất bên phải, sau đó kéo xuống đọc khung "SAU CHUẨN HÓA & TÁCH TỪ" và bảng "Token TF-IDF nổi bật".
+2. Ở khung **Thử một tình huống**, bấm mẫu **Nhiều vế** — *“Môi trường tốt nhưng lương thấp và quản lý chưa thật sự quan tâm nhân viên.”* App tự phân tích khi chọn mẫu.
+3. Đọc nhãn và xác suất bên phải, sau đó kéo xuống khung **SAU CHUẨN HÓA & TÁCH TỪ** và bảng **Token TF-IDF nổi bật**.
 
-**Kết quả hiện tại đã kiểm chứng** (chạy trực tiếp trên pipeline thật, khớp với con số Negative 77,3% đã ghi trong kế hoạch demo):
+**Kết quả hiện tại đã kiểm chứng** (có thể thay đổi nếu model được huấn luyện lại):
 
-- Nhãn cuối: **Negative — 77,3%**.
-- Xác suất ba lớp: Negative khoảng **77,3%**, Neutral khoảng **21,4%**, Positive khoảng **1,4%**.
-- Văn bản sau chuẩn hoá: `lương quản_lý minh_bạch thường_xuyên không lương`.
-- Token TF-IDF nổi bật nhất: `thường_xuyên không`, `minh_bạch`, `thường_xuyên`, `không lương`, `quản_lý`.
+- Nhãn cuối: **Trung tính — 58,7%**.
+- Xác suất ba lớp: Neutral khoảng **58,7%**, Negative khoảng **30,0%**, Positive khoảng **11,3%**.
+- Văn bản sau chuẩn hoá: `môi_trường tốt lương thấp quản_lý chưa thật_sự quan_tâm nhân_viên`.
+- Token TF-IDF nổi bật nhất: `chưa thật_sự`, `thật_sự`, `tốt lương`, `quan_tâm nhân_viên`.
 
 **Lời nói:**
 
-> Kết quả là Negative, khoảng 77,3%. Văn bản sau tiền xử lý cho thấy từ phủ định "không" trong cụm "không lương" vẫn được giữ lại, đúng như nhóm đã nói ở slide 4. Token nổi bật nhất là cụm "thường_xuyên không" và "không lương" — hai cụm bigram này chính là ví dụ nhóm đã dùng để giải thích TF-IDF ở slide 12.
+> Câu này vừa khen môi trường, vừa chê lương và quản lý. Model dự đoán Trung tính khoảng 58,7%; xác suất Tiêu cực vẫn khoảng 30,0%. Bên dưới, văn bản sau tiền xử lý còn giữ “lương thấp” và “chưa”. Bảng TF-IDF cho thấy những cụm từ nổi bật ở đầu vào, chứ không tự nó giải thích toàn bộ quyết định của model.
 
-**Không nên:** gõ một câu mới trên sân khấu; chỉ bấm mẫu có sẵn để không tốn thời gian và tránh lỗi chính tả.
+**Không nên:** gõ một câu mới trên sân khấu; chỉ bấm mẫu có sẵn để tiết kiệm thời gian.
 
 ## Kết thúc demo và buổi trình bày
 
