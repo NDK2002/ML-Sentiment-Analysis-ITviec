@@ -229,7 +229,7 @@ Phần demo của nhóm xin kết thúc. Nhóm cảm ơn thầy và các bạn �
 1. Chọn **Insight doanh nghiệp** ở sidebar.
 2. Chọn doanh nghiệp **FPT Software** (công ty có nhiều review nhất, 2.014 review).
 3. Chỉ vào biểu đồ cơ cấu cảm xúc (donut) và biểu đồ điểm trải nghiệm theo 5 khía cạnh.
-4. Chuyển WordCloud từ **Tích cực** sang **Tiêu cực**.
+4. WordCloud mặc định ở **Tiêu cực**: bấm **Tích cực** để cho thấy nhóm tích cực, rồi bấm lại **Tiêu cực** và dừng ở đó.
 
 **Lời nói:**
 
@@ -275,6 +275,13 @@ Phần demo của nhóm xin kết thúc. Nhóm cảm ơn thầy và các bạn �
 > Câu này vừa khen môi trường, vừa chê lương và quản lý. Model dự đoán Trung tính khoảng 58,7%; xác suất Tiêu cực vẫn khoảng 30,0%. Bên dưới, văn bản sau tiền xử lý còn giữ “lương thấp” và “chưa”. Bảng TF-IDF cho thấy những cụm từ nổi bật ở đầu vào, chứ không tự nó giải thích toàn bộ quyết định của model.
 
 **Không nên:** gõ một câu mới trên sân khấu; chỉ bấm mẫu có sẵn để tiết kiệm thời gian.
+
+*(Tùy chọn thay thế nếu muốn minh họa câu Tiêu cực rõ ràng thay vì Nhiều vế — theo PR #10 của NDK):*
+- Bấm mẫu **Tiêu cực** — *“Lương thấp, quản lý thiếu minh bạch và thường xuyên phải OT không lương.”*
+- Nhãn cuối: **Tiêu cực — 99,0%** (Negative ~99,0%, Neutral ~0,9%, Positive ~0,03%).
+- Văn bản sau chuẩn hóa: `lương thấp quản_lý thiếu minh_bạch thường_xuyên ot không lương`.
+- Token TF-IDF nổi bật: `thường_xuyên ot`, `minh_bạch`, `thiếu`, `thường_xuyên`, `không lương`.
+- Lời nói: *"Kết quả là Tiêu cực, khoảng 99%. Văn bản sau tiền xử lý giữ lại các từ như 'thấp', 'thiếu' và 'không' trong cụm 'không lương' — đúng như nhóm đã nói ở slide 4. Token nổi bật nhất là cụm 'thường_xuyên ot' và 'không lương', cho thấy bigram đang hoạt động."*
 
 ## Kết thúc demo và buổi trình bày
 
