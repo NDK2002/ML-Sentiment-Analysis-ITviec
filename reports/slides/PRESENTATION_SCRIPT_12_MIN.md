@@ -230,7 +230,7 @@ Phần demo của nhóm xin kết thúc. Nhóm cảm ơn thầy và các bạn �
 1. Chọn **Insight doanh nghiệp** ở sidebar.
 2. Chọn doanh nghiệp **FPT Software** (công ty có nhiều review nhất, 2.014 review).
 3. Chỉ vào biểu đồ cơ cấu cảm xúc (donut) và biểu đồ điểm trải nghiệm theo 5 khía cạnh.
-4. Chuyển WordCloud từ **Positive** sang **Negative**.
+4. WordCloud đang mặc định ở **Negative**: bấm **Positive** để cho thấy nhóm tích cực, rồi bấm lại **Negative** và dừng ở đó.
 
 **Lời nói:**
 
@@ -265,16 +265,16 @@ Phần demo của nhóm xin kết thúc. Nhóm cảm ơn thầy và các bạn �
 3. Bấm **"Phân tích cảm xúc"**.
 4. Đọc nhãn và xác suất bên phải, sau đó kéo xuống đọc khung "SAU CHUẨN HÓA & TÁCH TỪ" và bảng "Token TF-IDF nổi bật".
 
-**Kết quả hiện tại đã kiểm chứng** (chạy trực tiếp trên pipeline thật, khớp với con số Negative 77,3% đã ghi trong kế hoạch demo):
+**Kết quả hiện tại đã kiểm chứng** (chạy trên model `models/retrained_v2` mà app đang dùng; con số 77,3% trong kế hoạch cũ là của model trước khi sửa tiền xử lý):
 
-- Nhãn cuối: **Negative — 77,3%**.
-- Xác suất ba lớp: Negative khoảng **77,3%**, Neutral khoảng **21,4%**, Positive khoảng **1,4%**.
-- Văn bản sau chuẩn hoá: `lương quản_lý minh_bạch thường_xuyên không lương`.
-- Token TF-IDF nổi bật nhất: `thường_xuyên không`, `minh_bạch`, `thường_xuyên`, `không lương`, `quản_lý`.
+- Nhãn cuối: **Negative — 99,0%**.
+- Xác suất ba lớp: Negative khoảng **99,0%**, Neutral khoảng **0,9%**, Positive khoảng **0,03%**.
+- Văn bản sau chuẩn hóa: `lương thấp quản_lý thiếu minh_bạch thường_xuyên ot không lương`.
+- Token TF-IDF nổi bật nhất: `thường_xuyên ot`, `minh_bạch`, `thiếu`, `thường_xuyên`, `không lương`.
 
 **Lời nói:**
 
-> Kết quả là Negative, khoảng 77,3%. Văn bản sau tiền xử lý cho thấy từ phủ định "không" trong cụm "không lương" vẫn được giữ lại, đúng như nhóm đã nói ở slide 4. Token nổi bật nhất là cụm "thường_xuyên không" và "không lương" — hai cụm bigram này chính là ví dụ nhóm đã dùng để giải thích TF-IDF ở slide 12.
+> Kết quả là Negative, khoảng 99%. Văn bản sau tiền xử lý giữ lại các từ như "thấp", "thiếu" và "không" trong cụm "không lương" — đúng như nhóm đã nói ở slide 4. Token nổi bật nhất là cụm "thường_xuyên ot" và "không lương", cho thấy bigram đang hoạt động. Biểu đồ này chỉ cho biết token nào nổi bật, chưa cho biết chiều tác động lên nhãn.
 
 **Không nên:** gõ một câu mới trên sân khấu; chỉ bấm mẫu có sẵn để không tốn thời gian và tránh lỗi chính tả.
 
