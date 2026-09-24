@@ -258,17 +258,26 @@
 
 ### Bước 3: Phân tích review theo thời gian thực (1 phút 20 giây)
 
-**Thao tác:** Bấm tab **Phân tích review** ở menu bên trái.
+**Thao tác:** Bấm tab **Phân tích review** ở menu bên trái. Làm **2 lượt**: lượt 1 câu dễ để thấy mô hình đúng, lượt 2 câu nhiều vế để thấy giới hạn.
 
-* Bấm tình huống mẫu **Nhiều vế** *(“Môi trường tốt nhưng lương thấp và quản lý chưa thật sự quan tâm nhân viên”)* $\rightarrow$ Ứng dụng tự động phân tích ngay lập tức.
-* Đọc kết quả bên phải: Nhãn **Trung tính (58,7%)**, chỉ vào 3 thanh xác suất (Tiêu cực vẫn chiếm 30,0%).
-* Cuộn xuống khung văn bản sau chuẩn hóa: chỉ từ *'môi_trường'*, *'lương thấp'* và bảng Token TF-IDF nổi bật.
-* *(Nếu còn thời gian)*: Bấm thêm mẫu **Tiêu cực** *(“Lương thấp, quản lý thiếu minh bạch…”)* để Thầy thấy mô hình bắt đúng 99,0% nhãn Tiêu cực.
+**Lượt 1 — Tiêu cực (~40 giây):**
+
+* Bấm tình huống mẫu **Tiêu cực** *(“Lương thấp, quản lý thiếu minh bạch và thường xuyên phải OT không lương.”)* $\rightarrow$ Ứng dụng tự động phân tích ngay.
+* Chỉ nhãn **Tiêu cực (99,0%)** và 3 thanh xác suất (Trung tính ~0,9%, Tích cực ~0,03%).
+* Cuộn xuống văn bản sau chuẩn hóa `lương thấp quản_lý thiếu minh_bạch thường_xuyên ot không lương`: chỉ *'lương thấp'*, *'minh_bạch'*, *'thường_xuyên ot'*, *'không lương'* và bảng Token TF-IDF.
+
+**Lượt 2 — Nhiều vế (~40 giây):**
+
+* Bấm tình huống mẫu **Nhiều vế** *(“Môi trường tốt nhưng lương thấp và quản lý chưa thật sự quan tâm nhân viên”)*.
+* Chỉ nhãn **Trung tính (58,7%)**, thanh Tiêu cực vẫn chiếm 30,0%, Tích cực 11,3%.
+* Chỉ lại 'môi_trường' và 'lương thấp' trong văn bản sau chuẩn hóa để nối về hạn chế ở Slide 13.
 
 > **Lời nói:**
-> "Bây giờ em xin thử nghiệm phân tích một review thực tế. Khi em bấm mẫu tình huống 'Nhiều vế', hệ thống tự động xử lý ngay lập tức: kết quả dự đoán là **Trung tính 58,7%**, nhưng thanh Tiêu cực vẫn chiếm tới 30,0%.
-> Kéo xuống phần tín hiệu, văn bản đã được tách từ chuẩn xác thành 'môi_trường', giữ lại 'lương thấp' và 'chưa'. Bảng TF-IDF bên cạnh bóc tách các đặc trưng nổi bật nhất đưa vào bộ phân loại.
-> *(Tùy chọn)*: Nếu thử câu hoàn toàn tiêu cực về OT không lương, mô hình nhận diện chính xác 99,0% lớp Tiêu cực ạ."
+> "Bây giờ em xin thử nghiệm phân tích một review thực tế. Em bấm mẫu Tiêu cực, hệ thống tự động xử lý ngay: mô hình dự đoán **Tiêu cực 99,0%**. Kéo xuống, Thầy có thể thấy văn bản đã được chuẩn hóa và tách từ thành 'minh_bạch', 'thường_xuyên ot', giữ lại 'lương thấp' và 'không lương'. Bảng TF-IDF bên cạnh là các đặc trưng nổi bật nhất được đưa vào bộ phân loại.
+>
+> Để thấy giới hạn, em thử mẫu 'Nhiều vế', câu vừa khen môi trường vừa chê lương và quản lý. Kết quả là **Trung tính 58,7%**, nhưng thanh Tiêu cực vẫn chiếm 30,0%. Mô hình TF-IDF kết hợp Logistic Regression chỉ đếm từ nên chưa hiểu được câu nhiều vế, đúng như hạn chế nhóm em đã nêu ở phần đánh giá ạ."
+
+> **Nếu còn dư thời gian hoặc Thầy muốn thử:** gõ câu tự do, ví dụ *“Công ty lương thấp, họp nhiều”* $\rightarrow$ Tiêu cực ~57,5%.
 
 ---
 
@@ -280,3 +289,17 @@
 > "Dạ vừa rồi là toàn bộ phần demo ứng dụng của nhóm chúng em. Qua đồ án này, nhóm sinh viên năm nhất chúng em đã học hỏi được rất nhiều bài học thực tiễn về quy trình xử lý dữ liệu và đánh giá mô hình học máy.
 >
 > Chúng em xin chân thành cảm ơn Thầy Cáp Phạm Đình Thăng và các bạn đã chú ý lắng nghe! Nhóm em rất mong nhận được những nhận xét và góp ý quý báu từ Thầy ạ!"
+
+---
+
+# DỰ PHÒNG — CHỈ NÓI KHI THẦY HỎI
+
+*(Không đưa vào phần trình bày chính.)*
+
+**1. Web chưa tải xong / phân tích chậm:** Model được nạp sẵn ở nền khi mở app. Nếu trang chưa hiển thị kết quả, đợi vài giây rồi bấm lại mẫu; đừng chuyển tab liên tục. Nếu vẫn lỗi, chuyển sang slide Kết quả (Slide 9) để trình bày số liệu.
+
+**2. Vì sao "lương thấp" từng bị đoán sai (lỗi stopword):**
+
+> "Dạ ban đầu danh sách stopword tiếng Việt có chứa 'thấp' và 'nhiều', nên các từ này bị xóa ở bước tiền xử lý, làm câu như 'lương thấp, họp nhiều' mất tín hiệu tiêu cực. Nhóm đã giữ lại hai từ này (và các từ phủ định), huấn luyện lại mô hình `retrained_v2`: CV Macro F1 0,5815, Final Test Macro F1 0,5764, Accuracy 74,33%. Recall lớp Tiêu cực vẫn chỉ 45,6% nên đây vẫn là điểm yếu nhóm nhìn nhận."
+
+**3. Câu mỉa mai / đảo ngữ bị đoán sai:** ví dụ *“Cty rất tuyệt vời cho ai muốn thử thách độ kiên nhẫn =))”* bị đoán Tích cực. Trả lời: mô hình dựa trên tần suất từ nên không hiểu mỉa mai; hướng phát triển là PhoBERT/ViSoBERT (Slide 14).
